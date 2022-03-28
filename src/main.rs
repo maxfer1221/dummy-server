@@ -26,7 +26,7 @@ fn main() {
                 res
             },
             "/ping" => {
-                let mut res = Response::from_string::<String>(String::from("Pong!"));
+                let mut res = Response::from_string::<String>(String::from("pong"));
                 res.add_header(Header::from_bytes(
                     &b"Content-Type"[..], &b"text/plain"[..]
                 ).unwrap());
