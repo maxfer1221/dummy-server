@@ -12,18 +12,27 @@ fn main() {
 
         let response: Response<Cursor<Vec<u8>>> = match route {
             "/" => {
-                let id = request.url().split('=').collect::<Vec<&str>>().to_vec()[1];
-
-                let mut res = Response::from_string::<String>(
-                    format!(
-                        "{}\"msg\":\"Hello from server id: {}!\"{}",
-                        '{', id, '}'
-                    )
-                );
-                res.add_header(Header::from_bytes(
-                    &b"Content-Type"[..], &b"application/json"[..]
-                ).unwrap());
-                res
+                match request.url().split('=').collect::<Vec<&str>>().to_vec().get(1) {
+                    Some(id) => {
+                        let mut res = Response::from_string::<String>(
+                            format!(
+                                "{}\"msg\":\"Hello from server id: {}!\"{}",
+                                '{', id, '}'
+                            )
+                        );
+                        res.add_header(Header::from_bytes(
+                            &b"Content-Type"[..], &b"application/json"[..]
+                        ).unwrap());
+                        res
+                    },
+                    _ => {
+                        let mut res = Response::from_string::<String>(String::from("route not found"));
+                        res.add_header(Header::from_bytes(
+                            &b"Content-Type"[..], &b"text/plain"[..]
+                        ).unwrap());
+                        res
+                    }
+                }
             },
             "/ping" => {
                 let mut res = Response::from_string::<String>(String::from("pong"));
