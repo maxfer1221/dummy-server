@@ -1,4 +1,4 @@
-use tiny_http::{Server, Response, Request, Method, Header};
+use tiny_http::{Server, Response, Header};
 use std::io::Cursor;
 
 fn main() {
