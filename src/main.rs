@@ -3,8 +3,12 @@ use std::io::Cursor;
 
 fn main() {
 
+    let ip = String::from("0.0.0.0:8000");
+
     // tiny_http
-    let server = Server::http("127.0.0.1:8000").unwrap();
+    let server = Server::http("0.0.0.0:8000").unwrap();
+
+    println!("Server listening on {}", ip);
 
     // Serve requests
     for request in server.incoming_requests() {
